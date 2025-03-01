@@ -6,12 +6,18 @@ http.createServer(function (req, res) {
     if(url !== 'favicon.ico'){
         if (url === '/') {
             readFile('index.html',res);
-        }else{
+        }else if(url === '/ford-tautus/index.html'){
+            readFile('./ford-tautus/index.html',res);
+        }else if(url === '/test.html'){
+		readFile('./test.html',res);
+	}else{
             readFile('.'+url,res);
         }
     }
 
-}).listen(3000)
+}).listen(18080)
+
+
 function readFile(filename,res) {
     fs.readFile(filename, function (err, data) {
         if(err){
@@ -27,17 +33,17 @@ function readFile(filename,res) {
                 case 'css':
                     res.setHeader('Content-Type','text/css');
                     break;
-	case 'jpg':
-		res.setHeader('Content-Type','images/jpg');
-		break;
-	case 'png':
-		res.setHeader('Content-Type','images/png');
-		break;
-	case 'mp3':
-		res.setHeader('Content-Type','audio/mp3');
-		break;
+				case 'jpg':
+					res.setHeader('Content-Type','images/jpg');
+					break;
+				case 'png':
+					res.setHeader('Content-Type','images/png');
+					break;
+				case 'mp3':
+					res.setHeader('Content-Type','audio/mp3');
+					break;
             }
-            res.setHeader('Content-Length',data.length);
+			res.setHeader('Content-Length',data.length);
             res.end(data);
         }
     })
